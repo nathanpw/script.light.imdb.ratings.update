@@ -13,7 +13,7 @@ if sys.version_info[0] >= 3:
 else:
 	import simplejson as jSon
 	from thread import start_new_thread, allocate_lock
-from datetime import datetime
+from datetime import datetime, timedelta
 from support.common import *
 from support.httptools import wait_for_internet
 from core.update_common import *
@@ -81,7 +81,12 @@ class Movies:
 		return
 
 	def getDBMovies(self):
-		jSonQuery = '{"jsonrpc":"2.0","method":"VideoLibrary.GetMovies","params":{"properties":["uniqueid","title"]},"id":1}'
+		dateAfter = 0
+		if UpdateTime > 0:
+			dateAfter = (datetime.now() - timedelta(days=UpdateTime)).strftime('%Y-%m-%d')
+			jSonQuery = '{"jsonrpc":"2.0","method":"VideoLibrary.GetMovies","params":{"properties":["uniqueid","title"], "filter": {"field": "dateadded", "operator": "greaterthan", "value": "' + str( dateAfter ) + '"}, "sort":{"method": "dateadded","order":"descending"}},"id":1}'
+		else:
+			jSonQuery = '{"jsonrpc":"2.0","method":"VideoLibrary.GetMovies","params":{"properties":["uniqueid","title"], "sort":{"method": "dateadded","order":"descending"}},"id":1}'
 		jSonResponse = xbmc.executeJSONRPC( jSonQuery )
 		jSonResponse = jSon.loads( jSonResponse )
 		try:
@@ -161,7 +166,11 @@ class TVShows:
 		return
 
 	def getDBTVShows(self):
-		jSonQuery = '{"jsonrpc":"2.0","method":"VideoLibrary.GetTVShows","params":{"properties":["uniqueid","title"]},"id":1}'
+		if UpdateTime > 0:
+			dateAfter = (datetime.now() - timedelta(days=UpdateTime)).strftime('%Y-%m-%d')
+			jSonQuery = '{"jsonrpc":"2.0","method":"VideoLibrary.GetTVShows","params":{"properties":["uniqueid","title"], "filter": {"field": "dateadded", "operator": "greaterthan", "value": "' + str( dateAfter ) + '"}, "sort":{"method": "dateadded","order":"descending"}},"id":1}'
+		else:
+			jSonQuery = '{"jsonrpc":"2.0","method":"VideoLibrary.GetTVShows","params":{"properties":["uniqueid","title"], "sort":{"method": "dateadded","order":"descending"}},"id":1}'
 		jSonResponse = xbmc.executeJSONRPC( jSonQuery )
 		jSonResponse = jSon.loads( jSonResponse )
 		try:
@@ -226,7 +235,11 @@ class TVShows:
 
 	def doUpdateSeasons(self, tvshowid, IMDb, progress, percentage):
 		global num_threads
-		jSonQuery = '{"jsonrpc":"2.0","method":"VideoLibrary.GetSeasons","params":{"tvshowid":' + str( tvshowid ) + ',"properties":["season"]},"id":1}'
+		if UpdateTime > 0:
+			dateAfter = (datetime.now() - timedelta(days=UpdateTime)).strftime('%Y-%m-%d')
+			jSonQuery = '{"jsonrpc":"2.0","method":"VideoLibrary.GetSeasons","params":{"tvshowid":' + str( tvshowid ) + ',"properties":["season"], "filter": {"field": "dateadded", "operator": "greaterthan", "value": "' + str( dateAfter ) + '"}},"id":1}'
+		else:
+			jSonQuery = '{"jsonrpc":"2.0","method":"VideoLibrary.GetSeasons","params":{"tvshowid":' + str( tvshowid ) + ',"properties":["season"]},"id":1}'
 		jSonResponse = xbmc.executeJSONRPC( jSonQuery )
 		jSonResponse = jSon.loads( jSonResponse )
 		try:
@@ -243,10 +256,18 @@ class TVShows:
 
 	def doUpdateEpisodes(self, tvshowid, tvshowTMDB, season, progress, percentage):
 		global num_threads
-		if season != -1:
-			jSonQuery = '{"jsonrpc":"2.0","method":"VideoLibrary.GetEpisodes","params":{"tvshowid":' + str( tvshowid ) + ', "season":' + str( season ) + ', "properties":["uniqueid","episode","season","showtitle"], "sort":{"method": "episode"}},"id":1}'
+		if season != -1 :
+			if UpdateTime > 0:
+				dateAfter = (datetime.now() - timedelta(days=UpdateTime)).strftime('%Y-%m-%d')
+				jSonQuery = '{"jsonrpc":"2.0","method":"VideoLibrary.GetEpisodes","params":{"tvshowid":' + str( tvshowid ) + ', "season":' + str( season ) + ', "properties":["uniqueid","episode","season","showtitle"], "filter": {"field": "dateadded", "operator": "greaterthan", "value": "' + str( dateAfter ) + '"}, "sort":{"method": "episode"}},"id":1}'
+			else:
+				jSonQuery = '{"jsonrpc":"2.0","method":"VideoLibrary.GetEpisodes","params":{"tvshowid":' + str( tvshowid ) + ', "season":' + str( season ) + ', "properties":["uniqueid","episode","season","showtitle"], "sort":{"method": "episode"}},"id":1}'
 		else:
-			jSonQuery = '{"jsonrpc":"2.0","method":"VideoLibrary.GetEpisodes","params":{"tvshowid":' + str( tvshowid ) + ', "properties":["uniqueid","episode","season","showtitle"], "sort":{"method": "episode"}},"id":1}'
+			if UpdateTime > 0:
+				dateAfter = (datetime.now() - timedelta(days=UpdateTime)).strftime('%Y-%m-%d')
+				jSonQuery = '{"jsonrpc":"2.0","method":"VideoLibrary.GetEpisodes","params":{"tvshowid":' + str( tvshowid ) + ', "properties":["uniqueid","episode","season","showtitle"], "filter": {"field": "dateadded", "operator": "greaterthan", "value": "' + str( dateAfter ) + '"}, "sort":{"method": "episode"}},"id":1}'
+			else:
+				jSonQuery = '{"jsonrpc":"2.0","method":"VideoLibrary.GetEpisodes","params":{"tvshowid":' + str( tvshowid ) + ', "properties":["uniqueid","episode","season","showtitle"], "sort":{"method": "episode"}},"id":1}'
 		jSonResponse = xbmc.executeJSONRPC( jSonQuery )
 		jSonResponse = jSon.loads( jSonResponse )
 		try:

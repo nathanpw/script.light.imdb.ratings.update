@@ -16,10 +16,18 @@ from core.imdb_scraper import parse_IMDb_episodes_page
 from core.tmdb_api import get_IMDb_ID_from_TMDb
 
 def doUpdateEpisodesBySeason(tvshowid, IMDb, season, progress, percentage, flock):
-	if season != -1:					
-		jSonQuery = '{"jsonrpc":"2.0","method":"VideoLibrary.GetEpisodes","params":{"tvshowid":' + str( tvshowid ) + ', "season":' + str( season ) + ', "properties":["episode","season","showtitle"], "sort":{"method": "episode"}},"id":1}'
+	if season != -1 :
+		if UpdateTime > 0:
+			dateAfter = (datetime.now() - timedelta(days=UpdateTime)).strftime('%Y-%m-%d')
+			jSonQuery = '{"jsonrpc":"2.0","method":"VideoLibrary.GetEpisodes","params":{"tvshowid":' + str( tvshowid ) + ', "season":' + str( season ) + ', "properties":["episode","season","showtitle"], "filter": {"field": "dateadded", "operator": "greaterthan", "value": "' + str( dateAfter ) + '"}, "sort":{"method": "episode"}},"id":1}'
+		else:
+			jSonQuery = '{"jsonrpc":"2.0","method":"VideoLibrary.GetEpisodes","params":{"tvshowid":' + str( tvshowid ) + ', "season":' + str( season ) + ', "properties":["episode","season","showtitle"], "sort":{"method": "episode"}},"id":1}'
 	else:
-		jSonQuery = '{"jsonrpc":"2.0","method":"VideoLibrary.GetEpisodes","params":{"tvshowid":' + str( tvshowid ) + ', "properties":["episode","season","showtitle"], "sort":{"method": "episode"}},"id":1}'
+		if UpdateTime > 0:
+			dateAfter = (datetime.now() - timedelta(days=UpdateTime)).strftime('%Y-%m-%d')
+			jSonQuery = '{"jsonrpc":"2.0","method":"VideoLibrary.GetEpisodes","params":{"tvshowid":' + str( tvshowid ) + ', "properties":["episode","season","showtitle"], "filter": {"field": "dateadded", "operator": "greaterthan", "value": "' + str( dateAfter ) + '"}, "sort":{"method": "episode"}},"id":1}'
+		else:
+			jSonQuery = '{"jsonrpc":"2.0","method":"VideoLibrary.GetEpisodes","params":{"tvshowid":' + str( tvshowid ) + ', "properties":["episode","season","showtitle"], "sort":{"method": "episode"}},"id":1}'
 	jSonResponse = xbmc.executeJSONRPC( jSonQuery )
 	jSonResponse = jSon.loads( jSonResponse )
 	try:

@@ -1,3 +1,7 @@
+v5.3.0 (2025-06-12)
+- Added support for updating based on a time interval
+- Process shows and movies starting with the most recently added
+
 v5.2.0 (2025-04-01)
 - Added support for Video Version (Kodi 21 feature)
 

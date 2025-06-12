@@ -199,3 +199,27 @@ msgstr "La vidéothèque de séries est vide"
 msgctxt "#32842"
 msgid "The ratings update of movies and TV shows is disabled. Please check the add-on settings"
 msgstr "Mise à jour des notes des films et séries est désactivé. Merci de vérifier les paramètres du extension"
+
+msgctxt "#32845"
+msgid "Ratings update time"
+msgstr "Temps pour metre a jour"
+
+msgctxt "#32846"
+msgid "None"
+msgstr "Aucun"
+
+msgctxt "#32847"
+msgid "1 month"
+msgstr "1 mois"
+
+msgctxt "#32848"
+msgid "3 months"
+msgstr "3 mois"
+
+msgctxt "#32849"
+msgid "6 months"
+msgstr "6 mois"
+
+msgctxt "#32850"
+msgid "1 year"
+msgstr "1 an"

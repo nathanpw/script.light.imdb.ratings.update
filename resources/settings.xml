@@ -5,6 +5,7 @@
 	  <setting label="32810" type="bool" id="TVShows" default="true" />
 	  <setting label="32818" type="bool" id="IncludeEpisodes" enable="eq(-1,true)" default="true" />
 	  <setting label="32835" type="enum" id="UpdateMode" lvalues="32836|32837" enable="eq(-1,true) + eq(-2,true)" default="0" />
+      <setting label="32845" type="enum" id="UpdateTime" lvalues="32846|32847|32848|32849|32850" default="0" />
 	  <setting label="32820" type="bool" id="IMDbRatingDefault" default="false" />
 	  <setting label="32804" type="enum" id="NumberOfThreads" values="8|16|1|2|4" default="0" />
 	 </category>

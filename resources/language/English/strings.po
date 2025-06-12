@@ -199,3 +199,27 @@ msgstr ""
 msgctxt "#32842"
 msgid "The ratings update of movies and TV shows is disabled. Please check the add-on settings"
 msgstr ""
+
+msgctxt "#32845"
+msgid "Ratings update time"
+msgstr ""
+
+msgctxt "#32846"
+msgid "None"
+msgstr ""
+
+msgctxt "#32847"
+msgid "1 month"
+msgstr ""
+
+msgctxt "#32848"
+msgid "3 months"
+msgstr ""
+
+msgctxt "#32849"
+msgid "6 months"
+msgstr ""
+
+msgctxt "#32850"
+msgid "1 year"
+msgstr ""
