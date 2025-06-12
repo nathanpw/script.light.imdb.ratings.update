@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+	 <category label="32801" id="General">
+	  <setting label="32807" type="bool" id="Movies" default="true" />
+	  <setting label="32810" type="bool" id="TVShows" default="true" />
+	  <setting label="32818" type="bool" id="IncludeEpisodes" enable="eq(-1,true)" default="true" />
+	  <setting label="32835" type="enum" id="UpdateMode" lvalues="32836|32837" enable="eq(-1,true) + eq(-2,true)" default="0" />
+	  <setting label="32820" type="bool" id="IMDbRatingDefault" default="false" />
+	  <setting label="32804" type="enum" id="NumberOfThreads" values="8|16|1|2|4" default="0" />
+	 </category>
+     <category label="32821" id="Scheduling">
+	  <setting label="32822" type="bool" id="ScheduleEnabled" default="false" />
+	  <setting label="32813" type="enum" id="WeekDay" lvalues="32828|32829|32830|32831|32832|32833|32834" enable="eq(-1,true)" default="0" />
+	  <setting label="32814" type="time" id="DayTime" enable="eq(-2,true)" default="12:00" />
+	  <setting label="" type="date" id="ScheduledWeekDay" default="2000-01-01" visible="false" />
+	  <setting label="" type="bool" id="PerformingUpdate" default="false" visible="false"/>
+     </category>
+	 <category label="32815" id="Background">
+	  <setting label="32816" type="bool" id="ShowNotifications" default="true" />
+	  <setting label="32819" type="bool" id="NotificationsSound" enable="eq(-1,true)" default="true" />
+	  <setting label="32817" type="bool" id="ShowProgress" default="true" />
+	  <setting label="32825" type="bool" id="CompleteLog" default="false" />
+	  <setting label="32823" type="bool" id="ShowLogMessage" default="false" />
+	  <setting label="" type="bool" id="LogDialog" default="false" visible="false"/>
+     </category>
+</settings>

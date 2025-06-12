@@ -1,0 +1,201 @@
+# KODI Media Center Language File
+# Addon Name: Light IMDb Ratings Update
+# Addon ID: script.light.imdb.ratings.update
+# Addon Provider: axlt2002
+msgid ""
+msgstr ""
+"Project-Id-Version: Light IMDb Ratings Update\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-05-26 00:00+0000\n"
+"PO-Revision-Date: 2017-05-26 00:00+0000\n"
+"Last-Translator: axlt2002 \n"
+"Language-Team: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fr\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+msgctxt "Addon Summary"
+msgid "Light IMDb Ratings Update is a Kodi add-on that keeps updated the IMDb ratings for your movies and TV shows."
+msgstr "Light IMDb Ratings Update est une extension Kodi qui tient à jour les notes de vos films et séries."
+
+msgctxt "Addon Description"
+msgid "Light IMDb Ratings Update runs as a Kodi service to update the ratings, votes and Top 250 for movies as well as the ratings and votes for TV shows (including episodes) by scraping the data from the IMDb site. The update can be run manually or scheduled once a week and it will run as soon as possible after a scheduled start is missed. Please check the add-on thread in the Kodi forum for more details."
+msgstr "Light IMDb Ratings Update s'éxecute en tant que service dans Kodi pour mettre à jour les notes, votes et Top 250 pour les films et égalelement les notes et votes des séries (incluant les episodes) en récupérant les donnée du site IMDb. La mise à jour s'éxecute manuellement ou planifié hebdomadairement. Le service s'éxécutera dès que possible après qu'un exécution planifiée ait été manquée. Consulté le fil dédié dans le forum Kodi  pour plus de détails."
+
+msgctxt "#32000"
+msgid "Update IMDb ratings"
+msgstr "Mise à jour des notes IMDb"
+
+msgctxt "#32251"
+msgid "The ratings update is already running, please wait..."
+msgstr "La mise à jour ses notes IMDb est déjà en cours d'execution, merci de patienter..."
+
+msgctxt "#32252"
+msgid "Update"
+msgstr "Mise à jour"
+
+msgctxt "#32255"
+msgid "Ratings update for movies started"
+msgstr "Démarrage de la mise à jour des notes des films"
+
+msgctxt "#32256"
+msgid "Ratings update for TV shows started"
+msgstr "Démarrage de la mise à jour des notes des séries"
+
+msgctxt "#32257"
+msgid "Unable to connect to the Internet. Please check your network connection"
+msgstr "Connection à Internet impossible. Merci de vérifier votre connection réseau"
+
+msgctxt "#32258"
+msgid "Ratings update for movies finished"
+msgstr "Mise à jour des notes des films terminée"
+
+msgctxt "#32259"
+msgid "Ratings update for TV shows finished"
+msgstr "Mise à jour des notes des séries terminée"
+
+msgctxt "#32260"
+msgid "Updating IMDb ratings..."
+msgstr "Mise à jour des notes IMDb"
+
+msgctxt "#32263"
+msgid "Rating"
+msgstr "Note"
+
+msgctxt "#32264"
+msgid "votes"
+msgstr "votes"
+
+msgctxt "#32265"
+msgid "Top 250"
+msgstr "Top 250"
+
+msgctxt "#32528"
+msgid "n/a"
+msgstr "n/a"
+
+msgctxt "#32655"
+msgid "Next scheduled update: %s at %s"
+msgstr "Prochaine mise à jour planifiée: %s at %s"
+
+msgctxt "#32801"
+msgid "General"
+msgstr "Général"
+
+msgctxt "#32804"
+msgid "Number of threads"
+msgstr "Nombre de threads"
+
+msgctxt "#32807"
+msgid "Update ratings for movies"
+msgstr "Mise à jour des notes des films"
+
+msgctxt "#32810"
+msgid "Update ratings for TV shows"
+msgstr "Mise à jour des notes des séries"
+
+msgctxt "#32813"
+msgid "Day"
+msgstr "Jour"
+
+msgctxt "#32814"
+msgid "Time"
+msgstr "Horaire"
+
+msgctxt "#32815"
+msgid "Background"
+msgstr "Arrière-plan"
+
+msgctxt "#32816"
+msgid "Show update notifications"
+msgstr "Afficher les notification de mise à jour"
+
+msgctxt "#32817"
+msgid "Show update progress"
+msgstr "Afficher la progression de la mise à jour"
+
+msgctxt "#32818"
+msgid "Include episodes"
+msgstr "Inclure les épisodes"
+
+msgctxt "#32819"
+msgid "Update notification sound"
+msgstr "Son de notification de mise à jour"
+
+msgctxt "#32820"
+msgid "Set IMDb ratings as default"
+msgstr "Définir les notes IMDb par défault"
+
+msgctxt "#32821"
+msgid "Scheduling"
+msgstr "Planification"
+
+msgctxt "#32822"
+msgid "Enable scheduling"
+msgstr "Activer la planification"
+
+msgctxt "#32823"
+msgid "Show log message"
+msgstr "Afficher le journal des messages"
+
+msgctxt "#32824"
+msgid "One or more issues have been occurred during the update. Please check the log file"
+msgstr "Un problème ou plus a eu lieu lors de la mise à jour. Merci de consulter le journal"
+
+msgctxt "#32825"
+msgid "Enable complete log"
+msgstr "Activer la journalisation complète"
+
+msgctxt "#32828"
+msgid "Monday"
+msgstr "Lundi"
+
+msgctxt "#32829"
+msgid "Tuesday"
+msgstr "Mardi"
+
+msgctxt "#32830"
+msgid "Wednesday"
+msgstr "Mercredi"
+
+msgctxt "#32831"
+msgid "Thursday"
+msgstr "Jeudi"
+
+msgctxt "#32832"
+msgid "Friday"
+msgstr "Vendredi"
+
+msgctxt "#32833"
+msgid "Saturday"
+msgstr "Samedi"
+
+msgctxt "#32834"
+msgid "Sunday"
+msgstr "Dimanche"
+
+msgctxt "#32835"
+msgid "Ratings update mode"
+msgstr "Mode de mise à jour des notes"
+
+msgctxt "#32836"
+msgid "Episode"
+msgstr "Épisode"
+
+msgctxt "#32837"
+msgid "Season"
+msgstr "Saison"
+
+msgctxt "#32840"
+msgid "The movies video library is empty"
+msgstr "La vidéothèque de films est vide"
+
+msgctxt "#32841"
+msgid "The TV shows video library is empty"
+msgstr "La vidéothèque de séries est vide"
+
+msgctxt "#32842"
+msgid "The ratings update of movies and TV shows is disabled. Please check the add-on settings"
+msgstr "Mise à jour des notes des films et séries est désactivé. Merci de vérifier les paramètres du extension"

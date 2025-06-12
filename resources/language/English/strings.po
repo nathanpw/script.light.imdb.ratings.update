@@ -1,0 +1,201 @@
+# KODI Media Center Language File
+# Addon Name: Light IMDb Ratings Update
+# Addon ID: script.light.imdb.ratings.update
+# Addon Provider: axlt2002
+msgid ""
+msgstr ""
+"Project-Id-Version: Light IMDb Ratings Update\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-05-26 00:00+0000\n"
+"PO-Revision-Date: 2017-05-26 00:00+0000\n"
+"Last-Translator: axlt2002 \n"
+"Language-Team: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+msgctxt "Addon Summary"
+msgid "Light IMDb Ratings Update is a Kodi add-on that keeps updated the IMDb ratings for your movies and TV shows."
+msgstr ""
+
+msgctxt "Addon Description"
+msgid "Light IMDb Ratings Update runs as a Kodi service to update the ratings, votes and Top 250 for movies as well as the ratings and votes for TV shows (including episodes) by scraping the data from the IMDb site. The update can be run manually or scheduled once a week and it will run as soon as possible after a scheduled start is missed. Please check the add-on thread in the Kodi forum for more details."
+msgstr ""
+
+msgctxt "#32000"
+msgid "Update IMDb ratings"
+msgstr ""
+
+msgctxt "#32251"
+msgid "The ratings update is already running, please wait..."
+msgstr ""
+
+msgctxt "#32252"
+msgid "Update"
+msgstr ""
+
+msgctxt "#32255"
+msgid "Ratings update for movies started"
+msgstr ""
+
+msgctxt "#32256"
+msgid "Ratings update for TV shows started"
+msgstr ""
+
+msgctxt "#32257"
+msgid "Unable to connect to the Internet. Please check your network connection"
+msgstr ""
+
+msgctxt "#32258"
+msgid "Ratings update for movies finished"
+msgstr ""
+
+msgctxt "#32259"
+msgid "Ratings update for TV shows finished"
+msgstr ""
+
+msgctxt "#32260"
+msgid "Updating IMDb ratings..."
+msgstr ""
+
+msgctxt "#32263"
+msgid "Rating"
+msgstr ""
+
+msgctxt "#32264"
+msgid "votes"
+msgstr ""
+
+msgctxt "#32265"
+msgid "Top 250"
+msgstr ""
+
+msgctxt "#32528"
+msgid "n/a"
+msgstr ""
+
+msgctxt "#32655"
+msgid "Next scheduled update: %s at %s"
+msgstr ""
+
+msgctxt "#32801"
+msgid "General"
+msgstr ""
+
+msgctxt "#32804"
+msgid "Number of threads"
+msgstr ""
+
+msgctxt "#32807"
+msgid "Update ratings for movies"
+msgstr ""
+
+msgctxt "#32810"
+msgid "Update ratings for TV shows"
+msgstr ""
+
+msgctxt "#32813"
+msgid "Day"
+msgstr ""
+
+msgctxt "#32814"
+msgid "Time"
+msgstr ""
+
+msgctxt "#32815"
+msgid "Background"
+msgstr ""
+
+msgctxt "#32816"
+msgid "Show update notifications"
+msgstr ""
+
+msgctxt "#32817"
+msgid "Show update progress"
+msgstr ""
+
+msgctxt "#32818"
+msgid "Include episodes"
+msgstr ""
+
+msgctxt "#32819"
+msgid "Update notification sound"
+msgstr ""
+
+msgctxt "#32820"
+msgid "Set IMDb ratings as default"
+msgstr ""
+
+msgctxt "#32821"
+msgid "Scheduling"
+msgstr ""
+
+msgctxt "#32822"
+msgid "Enable scheduling"
+msgstr ""
+
+msgctxt "#32823"
+msgid "Show log message"
+msgstr ""
+
+msgctxt "#32824"
+msgid "One or more issues have been occurred during the update. Please check the log file"
+msgstr ""
+
+msgctxt "#32825"
+msgid "Enable complete log"
+msgstr ""
+
+msgctxt "#32828"
+msgid "Monday"
+msgstr ""
+
+msgctxt "#32829"
+msgid "Tuesday"
+msgstr ""
+
+msgctxt "#32830"
+msgid "Wednesday"
+msgstr ""
+
+msgctxt "#32831"
+msgid "Thursday"
+msgstr ""
+
+msgctxt "#32832"
+msgid "Friday"
+msgstr ""
+
+msgctxt "#32833"
+msgid "Saturday"
+msgstr ""
+
+msgctxt "#32834"
+msgid "Sunday"
+msgstr ""
+
+msgctxt "#32835"
+msgid "Ratings update mode"
+msgstr ""
+
+msgctxt "#32836"
+msgid "Episode"
+msgstr ""
+
+msgctxt "#32837"
+msgid "Season"
+msgstr ""
+
+msgctxt "#32840"
+msgid "The movies video library is empty"
+msgstr ""
+
+msgctxt "#32841"
+msgid "The TV shows video library is empty"
+msgstr ""
+
+msgctxt "#32842"
+msgid "The ratings update of movies and TV shows is disabled. Please check the add-on settings"
+msgstr ""
