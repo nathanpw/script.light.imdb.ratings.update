@@ -31,17 +31,16 @@ ShowLogMessage    = addonSettings.getSetting( "ShowLogMessage" )
 CompleteLog       = addonSettings.getSetting( "CompleteLog" )
 IncludeEpisodes   = addonSettings.getSetting( "IncludeEpisodes" )
 UpdateMode        = addonSettings.getSetting( "UpdateMode" )
-match int(addonSettings.getSetting( "UpdateTime" )):
-	case 1:
-		UpdateTime = 32
-	case 2:
-		UpdateTime = 93
-	case 3:
-		UpdateTime = 183
-	case 4:
-		UpdateTime = 366
-	case _:
-		UpdateTime = 0
+if (int(addonSettings.getSetting( "UpdateTime" )) == 1):
+    UpdateTime = 32
+elif (int(addonSettings.getSetting( "UpdateTime" )) == 2):
+    UpdateTime = 93
+elif (int(addonSettings.getSetting( "UpdateTime" )) == 3):
+    UpdateTime = 183
+elif (int(addonSettings.getSetting( "UpdateTime" )) == 4):
+    UpdateTime = 366
+else:
+    UpdateTime = 0
 IMDbDefault       = addonSettings.getSetting( "IMDbRatingDefault" )
 Sound             = addonSettings.getSetting( "NotificationsSound" )
 ScheduleEnabled   = addonSettings.getSetting( "ScheduleEnabled" )
