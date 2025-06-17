@@ -202,7 +202,7 @@ msgstr "Mise à jour des notes des films et séries est désactivé. Merci de v�
 
 msgctxt "#32845"
 msgid "Ratings update time"
-msgstr "Temps pour metre a jour"
+msgstr "Limite de la date d'ajout"
 
 msgctxt "#32846"
 msgid "None"
