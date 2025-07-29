@@ -252,9 +252,9 @@ def doUpdateItem(updateitem, movieid, episodeid, tvshowid, season, episode, IMDb
 	jSonResponse = xbmc.executeJSONRPC( jSonQuery )
 	if (updateitem == "tvshow" and IncludeEpisodes == "true") or updateitem == "season":
 		if int(UpdateMode) == 0:
-			TVShows().doUpdateEpisodes(tvshowid, TMDB, season, progress, 0)
+			TVShows().doUpdateEpisodes(tvshowid, TMDB, season, progress, 0, False)
 		else:
-			doUpdateEpisodesBySeason(tvshowid, IMDb, season, progress, 0, None)
+			doUpdateEpisodesBySeason(tvshowid, IMDb, season, progress, 0, None, False)
 	progress.update( 100, addonLanguage(32260), Title )
 	xbmc.sleep(1000)
 	progress.close()

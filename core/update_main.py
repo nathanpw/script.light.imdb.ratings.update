@@ -233,9 +233,9 @@ class TVShows:
 			progress.close()
 		return
 
-	def doUpdateSeasons(self, tvshowid, IMDb, progress, percentage):
+	def doUpdateSeasons(self, tvshowid, IMDb, progress, percentage, datefilter = True):
 		global num_threads
-		if UpdateTime > 0:
+		if datefilter == True and vUpdateTime > 0:
 			dateAfter = (datetime.now() - timedelta(days=UpdateTime)).strftime('%Y-%m-%d')
 			jSonQuery = '{"jsonrpc":"2.0","method":"VideoLibrary.GetSeasons","params":{"tvshowid":' + str( tvshowid ) + ',"properties":["season"], "filter": {"field": "dateadded", "operator": "greaterthan", "value": "' + str( dateAfter ) + '"}},"id":1}'
 		else:
@@ -254,16 +254,16 @@ class TVShows:
 		except: pass
 		return
 
-	def doUpdateEpisodes(self, tvshowid, tvshowTMDB, season, progress, percentage):
+	def doUpdateEpisodes(self, tvshowid, tvshowTMDB, season, progress, percentage, datefilter = True):
 		global num_threads
 		if season != -1 :
-			if UpdateTime > 0:
+			if datefilter == True and UpdateTime > 0:
 				dateAfter = (datetime.now() - timedelta(days=UpdateTime)).strftime('%Y-%m-%d')
 				jSonQuery = '{"jsonrpc":"2.0","method":"VideoLibrary.GetEpisodes","params":{"tvshowid":' + str( tvshowid ) + ', "season":' + str( season ) + ', "properties":["uniqueid","episode","season","showtitle"], "filter": {"field": "dateadded", "operator": "greaterthan", "value": "' + str( dateAfter ) + '"}, "sort":{"method": "episode"}},"id":1}'
 			else:
 				jSonQuery = '{"jsonrpc":"2.0","method":"VideoLibrary.GetEpisodes","params":{"tvshowid":' + str( tvshowid ) + ', "season":' + str( season ) + ', "properties":["uniqueid","episode","season","showtitle"], "sort":{"method": "episode"}},"id":1}'
 		else:
-			if UpdateTime > 0:
+			if datefilter == True and UpdateTime > 0:
 				dateAfter = (datetime.now() - timedelta(days=UpdateTime)).strftime('%Y-%m-%d')
 				jSonQuery = '{"jsonrpc":"2.0","method":"VideoLibrary.GetEpisodes","params":{"tvshowid":' + str( tvshowid ) + ', "properties":["uniqueid","episode","season","showtitle"], "filter": {"field": "dateadded", "operator": "greaterthan", "value": "' + str( dateAfter ) + '"}, "sort":{"method": "episode"}},"id":1}'
 			else:
