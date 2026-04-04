@@ -271,3 +271,27 @@ msgstr "Mise à jour de la base de données"
 msgctxt "#32892"
 msgid "Settings"
 msgstr "Paramètres"
+
+msgctxt "#32895"
+msgid "Ratings update time"
+msgstr "Limite de la date d'ajout"
+
+msgctxt "#32896"
+msgid "None"
+msgstr "Aucun"
+
+msgctxt "#32897"
+msgid "1 month"
+msgstr "1 mois"
+
+msgctxt "#32898"
+msgid "3 months"
+msgstr "3 mois"
+
+msgctxt "#32899"
+msgid "6 months"
+msgstr "6 mois"
+
+msgctxt "#32900"
+msgid "1 year"
+msgstr "1 an"

@@ -32,6 +32,7 @@ CompleteLog           = addonSettings.getSetting( "CompleteLog" )
 IncludeEpisodes       = addonSettings.getSetting( "IncludeEpisodes" )
 IncludeTop250         = addonSettings.getSetting( "IncludeTop250" )
 UpdateMode            = addonSettings.getSetting( "UpdateMode" )
+UpdateTime            = addonSettings.getSetting("UpdateTime") or 0
 IMDbDefault           = addonSettings.getSetting( "IMDbRatingDefault" )
 Sound                 = addonSettings.getSetting( "NotificationsSound" )
 ScheduleEnabled       = addonSettings.getSetting( "ScheduleEnabled" )
