@@ -54,6 +54,7 @@
 					</dependencies>
 					<visible>false</visible>
 				</setting>
+      			<setting id="UpdateTime" type="enum" label="32895" lvalues="32896|32897|32898|32899|32900" default="0" />
 <!--				<setting id="UpdatePeriod" type="boolean" label="32860" help="">
 					<level>0</level>
 					<default>false</default>

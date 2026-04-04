@@ -271,3 +271,27 @@ msgstr ""
 msgctxt "#32892"
 msgid "Settings"
 msgstr ""
+
+msgctxt "#32895"
+msgid "Ratings update time"
+msgstr ""
+
+msgctxt "#32896"
+msgid "None"
+msgstr ""
+
+msgctxt "#32897"
+msgid "1 month"
+msgstr ""
+
+msgctxt "#32898"
+msgid "3 months"
+msgstr ""
+
+msgctxt "#32899"
+msgid "6 months"
+msgstr ""
+
+msgctxt "#32900"
+msgid "1 year"
+msgstr ""
