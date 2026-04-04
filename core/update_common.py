@@ -15,19 +15,11 @@ from support.common import *
 from core.imdb_scraper import parse_IMDb_episodes_page
 from core.tmdb_api import get_IMDb_ID_from_TMDb
 
-def doUpdateEpisodesBySeason(tvshowid, IMDb, season, progress, percentage, flock, datefilter = True):
-	if season != -1 :
-		if datefilter == True and UpdateTime > 0:
-			dateAfter = (datetime.now() - timedelta(days=UpdateTime)).strftime('%Y-%m-%d')
-			jSonQuery = '{"jsonrpc":"2.0","method":"VideoLibrary.GetEpisodes","params":{"tvshowid":' + str( tvshowid ) + ', "season":' + str( season ) + ', "properties":["episode","season","showtitle"], "filter": {"field": "dateadded", "operator": "greaterthan", "value": "' + str( dateAfter ) + '"}, "sort":{"method": "episode"}},"id":1}'
-		else:
-			jSonQuery = '{"jsonrpc":"2.0","method":"VideoLibrary.GetEpisodes","params":{"tvshowid":' + str( tvshowid ) + ', "season":' + str( season ) + ', "properties":["episode","season","showtitle"], "sort":{"method": "episode"}},"id":1}'
+def doUpdateEpisodesBySeason(tvshowid, IMDb, season, progress, percentage, flock):
+	if season != -1:					
+		jSonQuery = '{"jsonrpc":"2.0","method":"VideoLibrary.GetEpisodes","params":{"tvshowid":' + str( tvshowid ) + ', "season":' + str( season ) + ', "properties":["episode","season","showtitle"], "sort":{"method": "episode"}},"id":1}'
 	else:
-		if datefilter == True and UpdateTime > 0:
-			dateAfter = (datetime.now() - timedelta(days=UpdateTime)).strftime('%Y-%m-%d')
-			jSonQuery = '{"jsonrpc":"2.0","method":"VideoLibrary.GetEpisodes","params":{"tvshowid":' + str( tvshowid ) + ', "properties":["episode","season","showtitle"], "filter": {"field": "dateadded", "operator": "greaterthan", "value": "' + str( dateAfter ) + '"}, "sort":{"method": "episode"}},"id":1}'
-		else:
-			jSonQuery = '{"jsonrpc":"2.0","method":"VideoLibrary.GetEpisodes","params":{"tvshowid":' + str( tvshowid ) + ', "properties":["episode","season","showtitle"], "sort":{"method": "episode"}},"id":1}'
+		jSonQuery = '{"jsonrpc":"2.0","method":"VideoLibrary.GetEpisodes","params":{"tvshowid":' + str( tvshowid ) + ', "properties":["episode","season","showtitle"], "sort":{"method": "episode"}},"id":1}'
 	jSonResponse = xbmc.executeJSONRPC( jSonQuery )
 	jSonResponse = jSon.loads( jSonResponse )
 	try:
@@ -49,13 +41,13 @@ def doUpdateEpisodesBySeason(tvshowid, IMDb, season, progress, percentage, flock
 							flock.acquire()
 							try:
 								statusLog( item.get('showtitle') + " (TV show IMDb ID: " + sIMDb + ")" + "\n" + statusInfo )
-								if ShowLogMessage == "true":
+								if ShowErrorMessage == "true":
 									addonSettings.setSetting( "LogDialog", "true" )
 							finally:
 								flock.release()
 						else:
 							statusLog( item.get('showtitle') + " (TV show IMDb ID: " + sIMDb + ")" + "\n" + statusInfo )
-							if ShowLogMessage == "true":
+							if ShowErrorMessage == "true":
 								addonSettings.setSetting( "LogDialog", "true" )
 						continue
 				if episodes_ratings_and_votes != None:
@@ -69,7 +61,7 @@ def doUpdateEpisodesBySeason(tvshowid, IMDb, season, progress, percentage, flock
 						jSonResponse = xbmc.executeJSONRPC( jSonQuery )
 					except:
 						statusInfo = "Method parse_IMDb_episodes_page - Episode " + episode + " not found"
-						if ShowLogMessage == "true":
+						if ShowErrorMessage == "true":
 							addonSettings.setSetting( "LogDialog", "true" )
 						pass
 					if statusInfo != "":

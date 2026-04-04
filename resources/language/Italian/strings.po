@@ -21,8 +21,8 @@ msgid "Light IMDb Ratings Update is a Kodi add-on that keeps updated the IMDb ra
 msgstr "Light IMDb Ratings Update è un add-on di Kodi che mantiene aggiornate le valutazioni IMDb dei tuoi film e serie TV."
 
 msgctxt "Addon Description"
-msgid "Light IMDb Ratings Update runs as a Kodi service to update the ratings, votes and Top 250 for movies as well as the ratings and votes for TV shows (including episodes) by scraping the data from the IMDb site. The update can be run manually or scheduled once a week and it will run as soon as possible after a scheduled start is missed. Please check the add-on thread in the Kodi forum for more details."
-msgstr "Light IMDb Ratings Update viene eseguito come un servizio di Kodi per aggiornare le valutazioni, i voti e la Top 250 per i film così come le valutazioni ed i voti per le serie TV (inclusi gli episodi) ottenendo i dati dal sito IMDb. L'aggiornamento può essere eseguito manualmente o pianificato una volta alla settimana e sarà avviato appena possibile se un avvio pianificato non viene eseguito. Per ulteriori dettagli si veda il thread dell'add-on nel forum di Kodi."
+msgid "Light IMDb Ratings Update runs as a Kodi service to update the ratings and votes for movies and TV shows (including episodes) using the IMDb Non-Commercial Dataset for ratings. Additionally, it also updates the Top 250 for movies by obtaining the information from IMDb Top250.Informer site. The update can be run manually or scheduled once a week and it will run as soon as possible after a scheduled start is missed. Please check the add-on thread in the Kodi forum for more details."
+msgstr "Light IMDb Ratings Update viene eseguito come un servizio di Kodi per aggiornare le valutazioni ed i voti di film e serie TV (inclusi gli episodi) utilizzando il Dataset Non-Commerciale per le valutazioni di IMDb. Inoltre, aggiorna anche la Top 250 dei film ottenendo le informazioni dal sito IMDb Top250.Informer. L'aggiornamento può essere eseguito manualmente o pianificato una volta alla settimana e sarà avviato appena possibile se un avvio pianificato non viene eseguito. Per ulteriori dettagli si veda il thread dell'add-on nel forum di Kodi."
 
 msgctxt "#32000"
 msgid "Update IMDb ratings"
@@ -45,8 +45,8 @@ msgid "Ratings update for TV shows started"
 msgstr "Aggiornamento valutazioni serie TV avviato"
 
 msgctxt "#32257"
-msgid "Unable to connect to the Internet. Please check your network connection"
-msgstr "Impossibile connettersi ad Internet. Per favore controlla la connessione di rete"
+msgid "An issue occurred while updating the database. Please check the log file"
+msgstr "Si è verificato un problema durante l'aggiornamento del database. Per favore controlla il file di log"
 
 msgctxt "#32258"
 msgid "Ratings update for movies finished"
@@ -105,12 +105,12 @@ msgid "Time"
 msgstr "Ora"
 
 msgctxt "#32815"
-msgid "Background"
-msgstr "Background"
+msgid "Notifications"
+msgstr "Notifiche"
 
 msgctxt "#32816"
-msgid "Show update notifications"
-msgstr "Mostra notifiche aggiornamento"
+msgid "Show notifications"
+msgstr "Mostra notifiche"
 
 msgctxt "#32817"
 msgid "Show update progress"
@@ -137,8 +137,8 @@ msgid "Enable scheduling"
 msgstr "Abilita pianificazione"
 
 msgctxt "#32823"
-msgid "Show log message"
-msgstr "Mostra messaggio log"
+msgid "Show update error message"
+msgstr "Mostra messaggio di errore aggiornamento"
 
 msgctxt "#32824"
 msgid "One or more issues have been occurred during the update. Please check the log file"
@@ -199,3 +199,75 @@ msgstr "La libreria video delle serie TV è vuota"
 msgctxt "#32842"
 msgid "The ratings update of movies and TV shows is disabled. Please check the add-on settings"
 msgstr "L'aggiornamento delle valutazioni dei film e delle seriev TV è disabilitato. Per favore controlla le impostazioni dell'add-on"
+
+msgctxt "#32850"
+msgid "8"
+msgstr "8"
+
+msgctxt "#32851"
+msgid "16"
+msgstr "16"
+
+msgctxt "#32852"
+msgid "1"
+msgstr "1"
+
+msgctxt "#32853"
+msgid "2"
+msgstr "2"
+
+msgctxt "#32854"
+msgid "4"
+msgstr "4"
+
+msgctxt "#32860"
+msgid "Enable update period"
+msgstr "Abilita periodo di aggiornamento"
+
+msgctxt "#32861"
+msgid "Days"
+msgstr "Giorni"
+
+msgctxt "#32870"
+msgid "Aspect"
+msgstr "Aspetto"
+
+msgctxt "#32871"
+msgid "Disable text color for the context menu"
+msgstr "Disabilita il colore del testo per il menu contestuale"
+
+msgctxt "#32880"
+msgid "Downloading IMDb ratings dataset..."
+msgstr "Download dataset valutazioni IMDb in corso..."
+
+msgctxt "#32881"
+msgid "The database has been successfully updated"
+msgstr "Il database è stato aggiornato con successo"
+
+msgctxt "#32882"
+msgid "The database does not exist or it contains some errors. Please update it"
+msgstr "Il database non esiste o contiene degli errori. Si prega di aggiornarlo"
+
+msgctxt "#32883"
+msgid "Include Top 250"
+msgstr "Includi Top 250"
+
+msgctxt "#32884"
+msgid "Update database at startup"
+msgstr "Aggiorna database all'avvio"
+
+msgctxt "#32885"
+msgid "Update options"
+msgstr "Opzioni aggiornamento"
+
+msgctxt "#32890"
+msgid "Update ratings"
+msgstr "Aggiorna valutazioni"
+
+msgctxt "#32891"
+msgid "Update database"
+msgstr "Aggiorna database"
+
+msgctxt "#32892"
+msgid "Settings"
+msgstr "Impostazioni"

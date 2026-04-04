@@ -21,7 +21,7 @@ msgid "Light IMDb Ratings Update is a Kodi add-on that keeps updated the IMDb ra
 msgstr ""
 
 msgctxt "Addon Description"
-msgid "Light IMDb Ratings Update runs as a Kodi service to update the ratings, votes and Top 250 for movies as well as the ratings and votes for TV shows (including episodes) by scraping the data from the IMDb site. The update can be run manually or scheduled once a week and it will run as soon as possible after a scheduled start is missed. Please check the add-on thread in the Kodi forum for more details."
+msgid "Light IMDb Ratings Update runs as a Kodi service to update the ratings and votes for movies and TV shows (including episodes) using the IMDb Non-Commercial Dataset for ratings. Additionally, it also updates the Top 250 for movies by obtaining the information from IMDb Top250.Informer site. The update can be run manually or scheduled once a week and it will run as soon as possible after a scheduled start is missed. Please check the add-on thread in the Kodi forum for more details."
 msgstr ""
 
 msgctxt "#32000"
@@ -45,7 +45,7 @@ msgid "Ratings update for TV shows started"
 msgstr ""
 
 msgctxt "#32257"
-msgid "Unable to connect to the Internet. Please check your network connection"
+msgid "An issue occurred while updating the database. Please check the log file"
 msgstr ""
 
 msgctxt "#32258"
@@ -105,11 +105,11 @@ msgid "Time"
 msgstr ""
 
 msgctxt "#32815"
-msgid "Background"
+msgid "Notifications"
 msgstr ""
 
 msgctxt "#32816"
-msgid "Show update notifications"
+msgid "Show notifications"
 msgstr ""
 
 msgctxt "#32817"
@@ -137,7 +137,7 @@ msgid "Enable scheduling"
 msgstr ""
 
 msgctxt "#32823"
-msgid "Show log message"
+msgid "Show update error message"
 msgstr ""
 
 msgctxt "#32824"
@@ -200,26 +200,74 @@ msgctxt "#32842"
 msgid "The ratings update of movies and TV shows is disabled. Please check the add-on settings"
 msgstr ""
 
-msgctxt "#32845"
-msgid "Ratings update time"
-msgstr ""
-
-msgctxt "#32846"
-msgid "None"
-msgstr ""
-
-msgctxt "#32847"
-msgid "1 month"
-msgstr ""
-
-msgctxt "#32848"
-msgid "3 months"
-msgstr ""
-
-msgctxt "#32849"
-msgid "6 months"
-msgstr ""
-
 msgctxt "#32850"
-msgid "1 year"
+msgid "8"
+msgstr ""
+
+msgctxt "#32851"
+msgid "16"
+msgstr ""
+
+msgctxt "#32852"
+msgid "1"
+msgstr ""
+
+msgctxt "#32853"
+msgid "2"
+msgstr ""
+
+msgctxt "#32854"
+msgid "4"
+msgstr ""
+
+msgctxt "#32860"
+msgid "Enable update period"
+msgstr ""
+
+msgctxt "#32861"
+msgid "Days"
+msgstr ""
+
+msgctxt "#32870"
+msgid "Aspect"
+msgstr ""
+
+msgctxt "#32871"
+msgid "Disable text color for the context menu"
+msgstr ""
+
+msgctxt "#32880"
+msgid "Downloading IMDb ratings dataset..."
+msgstr ""
+
+msgctxt "#32881"
+msgid "The database has been successfully updated"
+msgstr ""
+
+msgctxt "#32882"
+msgid "The database does not exist or it contains some errors. Please update it"
+msgstr ""
+
+msgctxt "#32883"
+msgid "Include Top 250"
+msgstr ""
+
+msgctxt "#32884"
+msgid "Update database at startup"
+msgstr ""
+
+msgctxt "#32885"
+msgid "Update options"
+msgstr ""
+
+msgctxt "#32890"
+msgid "Update ratings"
+msgstr ""
+
+msgctxt "#32891"
+msgid "Update database"
+msgstr ""
+
+msgctxt "#32892"
+msgid "Settings"
 msgstr ""

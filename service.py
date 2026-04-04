@@ -5,11 +5,12 @@
 # by axlt2002               #
 #############################
 
-import xbmc, xbmcaddon, xbmcvfs
+import xbmc, xbmcaddon, xbmcvfs, xbmcgui
 import time, _strptime
 from datetime import date, datetime, timedelta
 from support.common import *
-from main import StartUpdate
+from core.database import update_database
+from update import StartUpdate
 
 if not xbmcvfs.exists( addonProfile ): xbmcvfs.mkdir( addonProfile )
 
@@ -34,6 +35,11 @@ def AutoStart():
     addonSettings.setSetting( "PerformingUpdate", "false" )
     addonSettings.setSetting( "LogDialog", "false" )
     start_StatusLog()
+    if date.today().isoformat() != LastDatabaseUpdate and UpdateDatabaseStartup == "true":
+        if not update_database():
+            xbmcgui.Dialog().ok( "%s" % ( addonName ), addonLanguage(32257) )
+        else:
+            addonSettings.setSetting( "LastDatabaseUpdate", date.today().isoformat()) 
     monitor = xbmc.Monitor()
     while not monitor.abortRequested():
         monitor.waitForAbort(5)

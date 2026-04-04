@@ -1,6 +1,12 @@
-v5.3.0 (2025-06-12)
-- Added support for updating based on a time interval
-- Process shows and movies starting with the most recently added
+v6.0.1 (2026-04-02)
+- Fixed string format issue (for Python 2)
+
+v6.0.0 (2026-04-01)
+- Complete redesign of the method to retrieve IMDb ratings and Top 250
+- Added add-on menu to run the ratings update, database update and open the settings
+- Updated settings structure (including xml format)
+- Removed Season mode for TV shows ratings update
+- Other related updates (including log file and language)
 
 v5.2.0 (2025-04-01)
 - Added support for Video Version (Kodi 21 feature)
@@ -35,8 +41,8 @@ v5.0.0 (2021-07-10)
 - Added support for Kodi 17/18
 - Added the option to choose the method for TV shows ratings update
 - Removed tmdbsimple and tvdbsimple wrappers
-- Added TMDB API requests to retrieve IMDB IDs
-- Added IMDB ID retrieval for movies
+- Added TMDB API requests to retrieve IMDb IDs
+- Added IMDb ID retrieval for movies
 - Added french translation (thanks to Mirgolth)
 - Other minor updates and fixes
 

@@ -9,7 +9,7 @@ import json, sys
 
 import xbmc, xbmcaddon, xbmcvfs, xbmcgui
 import os, unicodedata
-from datetime import datetime
+from datetime import datetime, timedelta
 
 try:
     xbmc.translatePath = xbmcvfs.translatePath
@@ -23,32 +23,28 @@ addonIcon     = os.path.join( addonSettings.getAddonInfo( "path" ), "icon.png" )
 addonProfile  = xbmc.translatePath( addonSettings.getAddonInfo( "profile" ) )
 addonLanguage = addonSettings.getLocalizedString
 
-onMovies          = addonSettings.getSetting( "Movies" )
-onTVShows         = addonSettings.getSetting( "TVShows" )
-ShowNotifications = addonSettings.getSetting( "ShowNotifications" )
-ShowProgress      = addonSettings.getSetting( "ShowProgress" )
-ShowLogMessage    = addonSettings.getSetting( "ShowLogMessage" )
-CompleteLog       = addonSettings.getSetting( "CompleteLog" )
-IncludeEpisodes   = addonSettings.getSetting( "IncludeEpisodes" )
-UpdateMode        = addonSettings.getSetting( "UpdateMode" )
-if (int(addonSettings.getSetting( "UpdateTime" )) == 1):
-    UpdateTime = 32
-elif (int(addonSettings.getSetting( "UpdateTime" )) == 2):
-    UpdateTime = 93
-elif (int(addonSettings.getSetting( "UpdateTime" )) == 3):
-    UpdateTime = 183
-elif (int(addonSettings.getSetting( "UpdateTime" )) == 4):
-    UpdateTime = 366
-else:
-    UpdateTime = 0
-IMDbDefault       = addonSettings.getSetting( "IMDbRatingDefault" )
-Sound             = addonSettings.getSetting( "NotificationsSound" )
-ScheduleEnabled   = addonSettings.getSetting( "ScheduleEnabled" )
-ScheduledWeekDay  = addonSettings.getSetting( "ScheduledWeekDay" )
-DayTime           = addonSettings.getSetting( "DayTime" )
+onMovies              = addonSettings.getSetting( "Movies" )
+onTVShows             = addonSettings.getSetting( "TVShows" )
+ShowNotifications     = addonSettings.getSetting( "ShowNotifications" )
+ShowProgress          = addonSettings.getSetting( "ShowProgress" )
+ShowErrorMessage      = addonSettings.getSetting( "ShowErrorMessage" )
+CompleteLog           = addonSettings.getSetting( "CompleteLog" )
+IncludeEpisodes       = addonSettings.getSetting( "IncludeEpisodes" )
+IncludeTop250         = addonSettings.getSetting( "IncludeTop250" )
+UpdateMode            = addonSettings.getSetting( "UpdateMode" )
+IMDbDefault           = addonSettings.getSetting( "IMDbRatingDefault" )
+Sound                 = addonSettings.getSetting( "NotificationsSound" )
+ScheduleEnabled       = addonSettings.getSetting( "ScheduleEnabled" )
+ScheduledWeekDay      = addonSettings.getSetting( "ScheduledWeekDay" )
+DayTime               = addonSettings.getSetting( "DayTime" )
+LastDatabaseUpdate    = addonSettings.getSetting( "LastDatabaseUpdate" )
+UpdateDatabaseStartup = addonSettings.getSetting( "UpdateDatabaseStartup" )
 
-def_threads = [8, 16, 1, 2, 4]
-NumberOfThreads = def_threads[int(addonSettings.getSetting( "NumberOfThreads" ))]
+NumberOfThreads = addonSettings.getSetting( "NumberOfThreads" )
+
+'''UpdatePeriod = addonSettings.getSetting( "UpdatePeriod" )
+NumberOfDays = int(addonSettings.getSetting( "NumberOfDays" ))
+datethreshold = (datetime.now() - timedelta( days = NumberOfDays ))'''
 
 def doUnicode( textMessage ):
     try: textMessage = unicode( textMessage, 'utf-8' )
@@ -84,8 +80,12 @@ def start_StatusLog():
 	f.write( doNormalize( "Starting " + addonName + " (" + datetime.now().strftime("%Y-%m-%d %H:%M:%S") + ")\n" ) )
 	f.write( doNormalize( "Add-on version: " + addonVersion + "\n" ) )
 	f.write( doNormalize( "Kodi version: " + get_kodi_version() + "\n" ) )
-	f.write( doNormalize( "onMovies: " + onMovies + "\n" ) )
-	f.write( doNormalize( "onTVShows: " + onTVShows + "\n" ) )
+	f.write( doNormalize( "Build: " + xbmc.getInfoLabel('System.BuildVersion') + "\n" ) )
+	f.write( doNormalize( "Movies update: " + onMovies + "\n" ) )
+	f.write( doNormalize( "TV shows update: " + onTVShows + "\n" ) )
+	f.write( doNormalize( "UpdateDatabaseStartup: " + UpdateDatabaseStartup + "\n" ) )
+	if UpdateDatabaseStartup == "true":
+		f.write( doNormalize( "LastDatabaseUpdate: " + LastDatabaseUpdate + "\n" ) )
 	f.write( doNormalize( "ScheduleEnabled: " + ScheduleEnabled + "\n" ) )
 	if ScheduleEnabled == "true":
 		f.write( doNormalize( addonLanguage(32655) % (ScheduledWeekDay, DayTime) + "\n" ) )
@@ -97,13 +97,23 @@ def dump_settings_StatusLog( updateitem ):
 	f.write( doNormalize( "----------------------------------------------------------------------------------------------------------------\n" ) )
 	if updateitem == "tvshow" or updateitem == "season":
 		f.write( doNormalize( "IncludeEpisodes: " + IncludeEpisodes + "\n" ) )
-		if int(UpdateMode) == 0:
+		'''if int(UpdateMode) == 0:
 			updatemode = "episode"
 		else:
 			updatemode = "season"
-		f.write( doNormalize( "UpdateMode: " + updatemode + "\n" ) )
+		f.write( doNormalize( "UpdateMode: " + updatemode + "\n" ) )'''
+	'''if UpdatePeriod == "true":
+		f.write( doNormalize( "UpdatePeriod: from " + datethreshold.strftime('%Y-%m-%d') + ' to ' + datetime.now().strftime('%Y-%m-%d') + "\n" ) )
+	else:
+		f.write( doNormalize( "UpdatePeriod: all\n" ) )'''
 	f.write( doNormalize( "IMDbDefault: " + IMDbDefault + "\n" ) )
 	f.write( doNormalize( "NumberOfThreads: " + str(NumberOfThreads) + "\n" ) )
+	f.write( doNormalize( "----------------------------------------------------------------------------------------------------------------\n" ) )
+	f.close()
+
+def dump_database_StatusLog( log ):
+	f = open( addonProfile + "/update.log", 'ab' )
+	f.write( doNormalize( "\n" + log ) )
 	f.write( doNormalize( "----------------------------------------------------------------------------------------------------------------\n" ) )
 	f.close()
 
@@ -113,6 +123,16 @@ def statusLog( textMessage ):
 	f.close()
 
 def get_kodi_version():
+	codenames = {
+		22: "Piers",
+		21: "Omega",
+		20: "Nexus",
+		19: "Matrix",
+		18: "Leia",
+		17: "Krypton",
+		16: "Jarvis"
+	}
+
 	query = {
 		"jsonrpc": "2.0",
 		"method": "Application.GetProperties",
@@ -130,6 +150,6 @@ def get_kodi_version():
 	version_installed = []
 	if 'result' in json_query and 'version' in json_query['result']:
 		version_installed = json_query['result']['version']
-		return str(version_installed['major']) + "." + str(version_installed['minor'])
+		return str(version_installed['major']) + "." + str(version_installed['minor']) + " (" + codenames.get(version_installed['major'], "Unknown") + ")"
 	else:
 		return ""

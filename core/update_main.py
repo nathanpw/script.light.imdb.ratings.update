@@ -13,11 +13,12 @@ if sys.version_info[0] >= 3:
 else:
 	import simplejson as jSon
 	from thread import start_new_thread, allocate_lock
-from datetime import datetime, timedelta
+from datetime import datetime
 from support.common import *
 from support.httptools import wait_for_internet
 from core.update_common import *
 from core.imdb_scraper import parse_IMDb_page
+from core.database import get_database, check_database
 
 max_threads = int(NumberOfThreads) - 1	#0 - 1 thread, 1 - 2 threads ...
 num_threads = 0
@@ -25,7 +26,8 @@ num_threads = 0
 def thread_parse_IMDb_page(updateitem, updateitem_id, IMDb, TVDB, TMDB, title, season, progress, percentage, lock, flock):
 	global num_threads
 	if updateitem == "movie" or updateitem == "tvshow" or updateitem == "episode":
-		(updatedRating, updatedVotes, updatedTop250, statusInfo) = parse_IMDb_page(IMDb)
+		#(updatedRating, updatedVotes, updatedTop250, statusInfo) = parse_IMDb_page(IMDb)
+		(updatedRating, updatedVotes, updatedTop250, statusInfo) = get_database(IMDb, updateitem)
 		if updatedRating != None:
 			statusInfo = "Rating: %s, Votes: %s" % (updatedRating, updatedVotes)
 			if updateitem == "movie":
@@ -38,7 +40,7 @@ def thread_parse_IMDb_page(updateitem, updateitem_id, IMDb, TVDB, TMDB, title, s
 			flock.acquire()
 			try:
 				statusLog( title + " (IMDb ID: " + sIMDb + ", TVDB ID: " + sTVDB + ", TMDB ID: "+ sTMDB + ")" + "\n" + statusInfo )
-				if updatedRating == None and ShowLogMessage == "true":
+				if updatedRating == None and ShowErrorMessage == "true":
 					addonSettings.setSetting( "LogDialog", "true" )
 			finally:
 				flock.release()
@@ -81,12 +83,7 @@ class Movies:
 		return
 
 	def getDBMovies(self):
-		dateAfter = 0
-		if UpdateTime > 0:
-			dateAfter = (datetime.now() - timedelta(days=UpdateTime)).strftime('%Y-%m-%d')
-			jSonQuery = '{"jsonrpc":"2.0","method":"VideoLibrary.GetMovies","params":{"properties":["uniqueid","title"], "filter": {"field": "dateadded", "operator": "greaterthan", "value": "' + str( dateAfter ) + '"}, "sort":{"method": "dateadded","order":"descending"}},"id":1}'
-		else:
-			jSonQuery = '{"jsonrpc":"2.0","method":"VideoLibrary.GetMovies","params":{"properties":["uniqueid","title"], "sort":{"method": "dateadded","order":"descending"}},"id":1}'
+		jSonQuery = '{"jsonrpc":"2.0","method":"VideoLibrary.GetMovies","params":{"properties":["uniqueid","title"]},"id":1}'
 		jSonResponse = xbmc.executeJSONRPC( jSonQuery )
 		jSonResponse = jSon.loads( jSonResponse )
 		try:
@@ -126,7 +123,7 @@ class Movies:
 					self.flock.acquire()
 					try:
 						statusLog( Movie[4] + " (IMDb ID: " + sIMDb + ", TVDB ID: " + sTVDB + ", TMDB ID: "+ sTMDB + ")" + "\n" + statusInfo )
-						if ShowLogMessage == "true":
+						if ShowErrorMessage == "true":
 							addonSettings.setSetting( "LogDialog", "true" )
 					finally:
 						self.flock.release()
@@ -166,11 +163,7 @@ class TVShows:
 		return
 
 	def getDBTVShows(self):
-		if UpdateTime > 0:
-			dateAfter = (datetime.now() - timedelta(days=UpdateTime)).strftime('%Y-%m-%d')
-			jSonQuery = '{"jsonrpc":"2.0","method":"VideoLibrary.GetTVShows","params":{"properties":["uniqueid","title"], "filter": {"field": "dateadded", "operator": "greaterthan", "value": "' + str( dateAfter ) + '"}, "sort":{"method": "dateadded","order":"descending"}},"id":1}'
-		else:
-			jSonQuery = '{"jsonrpc":"2.0","method":"VideoLibrary.GetTVShows","params":{"properties":["uniqueid","title"], "sort":{"method": "dateadded","order":"descending"}},"id":1}'
+		jSonQuery = '{"jsonrpc":"2.0","method":"VideoLibrary.GetTVShows","params":{"properties":["uniqueid","title"]},"id":1}'
 		jSonResponse = xbmc.executeJSONRPC( jSonQuery )
 		jSonResponse = jSon.loads( jSonResponse )
 		try:
@@ -212,7 +205,7 @@ class TVShows:
 				self.flock.acquire()
 				try:
 					statusLog( TVShow[4] + " (IMDb ID: " + sIMDb + ", TVDB ID: " + sTVDB + ", TMDB ID: "+ sTMDB + ")" + "\n" + statusInfo )
-					if ShowLogMessage == "true":
+					if ShowErrorMessage == "true":
 						addonSettings.setSetting( "LogDialog", "true" )
 				finally:
 					self.flock.release()
@@ -233,13 +226,9 @@ class TVShows:
 			progress.close()
 		return
 
-	def doUpdateSeasons(self, tvshowid, IMDb, progress, percentage, datefilter = True):
+	def doUpdateSeasons(self, tvshowid, IMDb, progress, percentage):
 		global num_threads
-		if datefilter == True and vUpdateTime > 0:
-			dateAfter = (datetime.now() - timedelta(days=UpdateTime)).strftime('%Y-%m-%d')
-			jSonQuery = '{"jsonrpc":"2.0","method":"VideoLibrary.GetSeasons","params":{"tvshowid":' + str( tvshowid ) + ',"properties":["season"], "filter": {"field": "dateadded", "operator": "greaterthan", "value": "' + str( dateAfter ) + '"}},"id":1}'
-		else:
-			jSonQuery = '{"jsonrpc":"2.0","method":"VideoLibrary.GetSeasons","params":{"tvshowid":' + str( tvshowid ) + ',"properties":["season"]},"id":1}'
+		jSonQuery = '{"jsonrpc":"2.0","method":"VideoLibrary.GetSeasons","params":{"tvshowid":' + str( tvshowid ) + ',"properties":["season"]},"id":1}'
 		jSonResponse = xbmc.executeJSONRPC( jSonQuery )
 		jSonResponse = jSon.loads( jSonResponse )
 		try:
@@ -254,20 +243,12 @@ class TVShows:
 		except: pass
 		return
 
-	def doUpdateEpisodes(self, tvshowid, tvshowTMDB, season, progress, percentage, datefilter = True):
+	def doUpdateEpisodes(self, tvshowid, tvshowTMDB, season, progress, percentage):
 		global num_threads
-		if season != -1 :
-			if datefilter == True and UpdateTime > 0:
-				dateAfter = (datetime.now() - timedelta(days=UpdateTime)).strftime('%Y-%m-%d')
-				jSonQuery = '{"jsonrpc":"2.0","method":"VideoLibrary.GetEpisodes","params":{"tvshowid":' + str( tvshowid ) + ', "season":' + str( season ) + ', "properties":["uniqueid","episode","season","showtitle"], "filter": {"field": "dateadded", "operator": "greaterthan", "value": "' + str( dateAfter ) + '"}, "sort":{"method": "episode"}},"id":1}'
-			else:
-				jSonQuery = '{"jsonrpc":"2.0","method":"VideoLibrary.GetEpisodes","params":{"tvshowid":' + str( tvshowid ) + ', "season":' + str( season ) + ', "properties":["uniqueid","episode","season","showtitle"], "sort":{"method": "episode"}},"id":1}'
+		if season != -1:
+			jSonQuery = '{"jsonrpc":"2.0","method":"VideoLibrary.GetEpisodes","params":{"tvshowid":' + str( tvshowid ) + ', "season":' + str( season ) + ', "properties":["uniqueid","episode","season","showtitle"], "sort":{"method": "episode"}},"id":1}'
 		else:
-			if datefilter == True and UpdateTime > 0:
-				dateAfter = (datetime.now() - timedelta(days=UpdateTime)).strftime('%Y-%m-%d')
-				jSonQuery = '{"jsonrpc":"2.0","method":"VideoLibrary.GetEpisodes","params":{"tvshowid":' + str( tvshowid ) + ', "properties":["uniqueid","episode","season","showtitle"], "filter": {"field": "dateadded", "operator": "greaterthan", "value": "' + str( dateAfter ) + '"}, "sort":{"method": "episode"}},"id":1}'
-			else:
-				jSonQuery = '{"jsonrpc":"2.0","method":"VideoLibrary.GetEpisodes","params":{"tvshowid":' + str( tvshowid ) + ', "properties":["uniqueid","episode","season","showtitle"], "sort":{"method": "episode"}},"id":1}'
+			jSonQuery = '{"jsonrpc":"2.0","method":"VideoLibrary.GetEpisodes","params":{"tvshowid":' + str( tvshowid ) + ', "properties":["uniqueid","episode","season","showtitle"], "sort":{"method": "episode"}},"id":1}'
 		jSonResponse = xbmc.executeJSONRPC( jSonQuery )
 		jSonResponse = jSon.loads( jSonResponse )
 		try:
@@ -297,7 +278,7 @@ class TVShows:
 						self.flock.acquire()
 						try:
 							statusLog(Title + " (IMDb ID: " + sIMDb + ", TVDB ID: " + sTVDB + ", TMDB ID: "+ sTMDB + ")" + "\n" + statusInfo)
-							if ShowLogMessage == "true":
+							if ShowErrorMessage == "true":
 								addonSettings.setSetting("LogDialog", "true")
 						finally:
 							self.flock.release()
@@ -311,8 +292,11 @@ class TVShows:
 		return
 
 def perform_update():
-	if not wait_for_internet(wait=3, retry=1):
+	"""if not wait_for_internet(wait=3, retry=1):
 		xbmcgui.Dialog().ok( "%s" % ( addonName ), addonLanguage(32257) )
+		return"""
+	if not check_database():
+		xbmcgui.Dialog().ok( "%s" % ( addonName ), addonLanguage(32882) )
 		return
 	if addonSettings.getSetting( "PerformingUpdate" ) == "true":
 		xbmcgui.Dialog().ok( "%s" % ( addonName ), addonLanguage(32251) )
@@ -326,7 +310,7 @@ def perform_update():
 	if onTVShows == "true":
 		TVShows().doUpdate()
 	addonSettings.setSetting( "PerformingUpdate", "false" )
-	if ShowLogMessage == "true" and addonSettings.getSetting( "LogDialog") == "true":
+	if ShowErrorMessage == "true" and addonSettings.getSetting( "LogDialog") == "true":
 		xbmcgui.Dialog().ok( "%s" % ( addonName ), addonLanguage(32824) )
 		addonSettings.setSetting( "LogDialog", "false" )
 	return

@@ -18,6 +18,7 @@ from core.update_common import *
 from support.httptools import wait_for_internet
 from core.update_main import TVShows
 from core.imdb_scraper import parse_IMDb_page
+from core.database import get_database, check_database
 	
 def open_context_menu(filename, label):
 	updateitem = ""
@@ -180,8 +181,11 @@ def context_menu_options(updateitem, movieid, episodeid, tvshowid, season, episo
 			jSonResponse = xbmc.executeJSONRPC( jSonQuery )
 
 def doUpdateItem(updateitem, movieid, episodeid, tvshowid, season, episode, IMDb, TVDB, TMDB, Title):
-	if not wait_for_internet(wait=3, retry=1):
+	"""if not wait_for_internet(wait=3, retry=1):
 		xbmcgui.Dialog().ok( "%s" % ( addonName ), addonLanguage(32257) )
+		return -1, -1, -1, None"""
+	if not check_database():
+		xbmcgui.Dialog().ok( "%s" % ( addonName ), addonLanguage(32882) )
 		return -1, -1, -1, None
 	if addonSettings.getSetting( "PerformingUpdate" ) == "true":
 		xbmcgui.Dialog().ok( "%s" % ( addonName ), addonLanguage(32251) )
@@ -214,11 +218,12 @@ def doUpdateItem(updateitem, movieid, episodeid, tvshowid, season, episode, IMDb
 	if IMDb == None:
 		sIMDb, sTVDB, sTMDB = printable_IDs(IMDb, TVDB, TMDB)
 		statusLog( Title + " (IMDb ID: " + sIMDb + ", TVDB ID: " + sTVDB + ", TMDB ID: "+ sTMDB + ")" + "\n" + statusInfo )
-		if ShowLogMessage == "true":
+		if ShowErrorMessage == "true":
 			addonSettings.setSetting( "LogDialog", "true" )
 		exit = True
 	else:
-		(updatedRating, updatedVotes, updatedTop250, statusInfo) = parse_IMDb_page(IMDb)
+		#(updatedRating, updatedVotes, updatedTop250, statusInfo) = parse_IMDb_page(IMDb)
+		(updatedRating, updatedVotes, updatedTop250, statusInfo) = get_database(IMDb, updateitem)
 		if updatedRating != None:
 			statusInfo = "Rating: %s, Votes: %s" % (updatedRating, updatedVotes)
 			if updateitem == "movie":
@@ -230,7 +235,7 @@ def doUpdateItem(updateitem, movieid, episodeid, tvshowid, season, episode, IMDb
 			sIMDb, sTVDB, sTMDB = printable_IDs(IMDb, TVDB, TMDB)
 			statusLog( Title + " (IMDb ID: " + sIMDb + ", TVDB ID: " + sTVDB + ", TMDB ID: "+ sTMDB + ")" + "\n" + statusInfo )
 		if updatedRating == None:
-			if ShowLogMessage == "true":
+			if ShowErrorMessage == "true":
 				addonSettings.setSetting( "LogDialog", "true" )
 			exit = True
 	if exit == True:
@@ -238,9 +243,9 @@ def doUpdateItem(updateitem, movieid, episodeid, tvshowid, season, episode, IMDb
 		xbmc.sleep(1000)
 		progress.close()
 		addonSettings.setSetting( "PerformingUpdate", "false" )
-		if ShowLogMessage == "true" and addonSettings.getSetting( "LogDialog") == "true":
+		if ShowErrorMessage == "true" and addonSettings.getSetting( "LogDialog") == "true":
 			xbmcgui.Dialog().ok( "%s" % ( addonName ), addonLanguage(32824) )
-			if ShowLogMessage == "true":
+			if ShowErrorMessage == "true":
 				addonSettings.setSetting( "LogDialog", "false" )
 		return -1, -1, -1, None
 	if updateitem == "movie":
@@ -252,14 +257,14 @@ def doUpdateItem(updateitem, movieid, episodeid, tvshowid, season, episode, IMDb
 	jSonResponse = xbmc.executeJSONRPC( jSonQuery )
 	if (updateitem == "tvshow" and IncludeEpisodes == "true") or updateitem == "season":
 		if int(UpdateMode) == 0:
-			TVShows().doUpdateEpisodes(tvshowid, TMDB, season, progress, 0, False)
+			TVShows().doUpdateEpisodes(tvshowid, TMDB, season, progress, 0)
 		else:
-			doUpdateEpisodesBySeason(tvshowid, IMDb, season, progress, 0, None, False)
+			doUpdateEpisodesBySeason(tvshowid, IMDb, season, progress, 0, None)
 	progress.update( 100, addonLanguage(32260), Title )
 	xbmc.sleep(1000)
 	progress.close()
 	addonSettings.setSetting( "PerformingUpdate", "false" )
-	if ShowLogMessage == "true" and addonSettings.getSetting( "LogDialog") == "true":
+	if ShowErrorMessage == "true" and addonSettings.getSetting( "LogDialog") == "true":
 		xbmcgui.Dialog().ok( "%s" % ( addonName ), addonLanguage(32824) )
 		addonSettings.setSetting( "LogDialog", "false" )
 	return float(updatedRating), updatedVotes.replace(",", ""), updatedTop250, IMDb
